@@ -231,8 +231,13 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
-            // Let Formspree handle the actual submission
-            // We'll use their default behavior
+            // Reset button after timeout if Formspree doesn't redirect
+            setTimeout(function() {
+                if (submitBtn.disabled) {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            }, 10000); // Reset after 10 seconds if still disabled
         });
 
         // Check for success/error in URL (Formspree redirects)
